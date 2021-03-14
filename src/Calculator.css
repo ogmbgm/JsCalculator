@@ -1,0 +1,25 @@
+#calc {
+	margin-top: 30vh;
+}
+
+#numbers {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 153px;
+	/* border-top: 1px solid black; */
+	border-left: 1px solid black;
+	float: left;
+}
+
+#top-row {
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	display: flex;
+	width: 204px;
+	height: 51px;
+}
+
+#right-row {
+	float: left;
+}
