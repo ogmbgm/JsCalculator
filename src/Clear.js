@@ -8,7 +8,7 @@ class Clear extends Component{
 
     render(){
         return(
-            <div id="clear" className="number">AC</div>
+            <div id="clear" className="number" onClick={this.props.click}>AC</div>
         );
     }
 }
