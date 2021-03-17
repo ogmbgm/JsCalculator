@@ -13,7 +13,8 @@ class Calculator extends Component{
             inputs: [],
             operations: [],
             output: 0,
-            canOperate: true
+            canOperate: true,
+            isNegative: false
         }
         this.onNumberClick = this.onNumberClick.bind(this);
         this.onOperatorClick = this.onOperatorClick.bind(this);
@@ -26,6 +27,13 @@ class Calculator extends Component{
         if(i == '.' && this.state.output.indexOf(".") != -1){
             i = '';
         }
+        if(this.state.isNegative){
+            i = "-"+i;
+            this.setState({
+                isNegative: false,
+                //inputs: [...this.state.inputs, parseFloat(this.state.output)],
+            });
+        }
         this.setState({
             output: (this.state.output == '0') ? i : this.state.output+i,
             canOperate: true
@@ -33,17 +41,23 @@ class Calculator extends Component{
     }
 
     onOperatorClick(i){
-        if(i != '-'){
-            if(!this.state.canOperate){
-                return false;
-            }
+        if((!this.state.canOperate || i.length==0) && i == '-'){
+            this.setState({
+                isNegative: true
+            });
+        }else if(!this.state.canOperate){
+            this.setState({
+                operations: [...this.state.operations.slice(0, -1), i],
+                isNegative: false
+            });
+        }else{
+            this.setState({
+                inputs: [...this.state.inputs, parseFloat(this.state.output)],
+                operations: [...this.state.operations, i],
+                output: '0',
+                canOperate: false
+            });
         }
-        this.setState({
-            inputs: [...this.state.inputs, parseFloat(this.state.output)],
-            operations: [...this.state.operations, i],
-            output: '0',
-            canOperate: false
-        });
     }
 
     onEqualClick(){
